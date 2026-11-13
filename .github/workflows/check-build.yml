@@ -1,0 +1,37 @@
+name: Check site build
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: ruby/setup-ruby@v1.328.0
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+          cache-version: 0
+      - name: Install UglifyJS
+        run: npm install -g uglify-js
+      - name: Minify JS files
+        run: |
+          uglifyjs assets/js/plugins/jquery.greedy-navigation.js assets/js/_main.js assets/js/theme.js -c -m -o assets/js/main.min.js
+      - name: Build with Jekyll
+        run: bundle exec jekyll build --baseurl "/LJT-Homepage"
+        env:
+          JEKYLL_ENV: production
+      - name: Inspect generated pages
+        run: |
+          find _site -maxdepth 2 -type f | sort
+          echo '--- Remaining template placeholders in generated HTML ---'
+          grep -RInE 'Your Name|Paper Title Number|GitHub University|Red Brick University|none@example.org|Your Sidebar Name' _site --include='*.html' || true
+          echo '--- About page sections ---'
+          grep -oE '<h2 id="[^"]+"[^>]*>[^<]+' _site/index.html
