@@ -30,8 +30,12 @@ jobs:
           JEKYLL_ENV: production
       - name: Inspect generated pages
         run: |
-          find _site -maxdepth 2 -type f | sort
+          find _site -maxdepth 2 | sort
           echo '--- Remaining template placeholders in generated HTML ---'
           grep -RInE 'Your Name|Paper Title Number|GitHub University|Red Brick University|none@example.org|Your Sidebar Name' _site --include='*.html' || true
-          echo '--- About page sections ---'
-          grep -oE '<h2 id="[^"]+"[^>]*>[^<]+' _site/index.html
+          echo '--- About page section headings ---'
+          grep -oE '<h2[^>]*>' _site/index.html || true
+          echo '--- Publication links on the About page ---'
+          grep -oE 'href="[^"]*publication[^"]*"' _site/index.html || true
+          echo '--- Links on the Publications page ---'
+          grep -oE 'href="[^"]*publication[^"]*"' _site/publications/index.html || true

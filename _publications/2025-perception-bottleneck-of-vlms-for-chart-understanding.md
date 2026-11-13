@@ -1,7 +1,7 @@
 ---
 title: "On the Perception Bottleneck of VLMs for Chart Understanding"
 collection: publications
-permalink: /publication/2025-perception-bottleneck-of-vlms-for-chart-understanding
+permalink: /publication/2025-perception-bottleneck-of-vlms-for-chart-understanding/
 venue: 'arXiv'
 year: '2025'
 date: 2025-01-01

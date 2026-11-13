@@ -1,7 +1,7 @@
 ---
 title: "C-Eval: A Multi-Level Multi-Discipline Chinese Evaluation Suite for Foundation Models"
 collection: publications
-permalink: /publication/2023-c-eval
+permalink: /publication/2023-c-eval/
 venue: 'NeurIPS'
 year: '2023'
 date: 2023-01-01
